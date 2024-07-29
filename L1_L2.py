@@ -1,9 +1,10 @@
+import matplotlib.pyplot as plt
+import pandas as pd
 import torch
+from PIL import Image
 from fastai.vision.all import *
 from fastbook import *
-import pandas as pd
-import matplotlib.pyplot as plt
-from PIL import Image
+
 
 #Shows how to find the L1 and L2 norm
 def L1L2(digit, mean):
