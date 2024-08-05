@@ -8,6 +8,19 @@ from fastai.vision.all import *
 from fastbook import *
 from utils import *
 
+
+class BasicOptim:
+    def __init__(self,params,lr):
+        self.params,self.lr = list(params),lr
+
+    def step(self, *args, **kwargs):
+        for p in self.params:
+            p.data -= p.grad.data * self.lr
+
+    def zero_grad(self, *args, **kwargs):
+        for p in self.params:
+            p.grad = None
+
 #Shows how to find the L1 and L2 norm
 def L1L2(digit, mean):
     dist_abs = (digit - mean).abs().mean()
@@ -32,12 +45,11 @@ def calc_grad(xb, yb, model):
     loss = mnist_loss(preds,yb)
     loss.backward()
 
-def train_epoch(model, lr, params):
+def train_epoch(model):
     for xb,yb in dl:
         calc_grad(xb,yb,model)
-        for p in params:
-            p.data -= p.grad*lr
-            p.grad.zero_()
+        opt.step()
+        opt.zero_grad()
 
 def batch_accuracy(xb, yb):
     preds = xb.sigmoid()
@@ -47,6 +59,11 @@ def batch_accuracy(xb, yb):
 def validate_epoch(model):
     accs = [batch_accuracy(model(xb), yb) for xb,yb in valid_dl]
     return round(torch.stack(accs).mean().item(), 4)
+
+def train_model(model, epochs):
+    for i in range(epochs):
+        train_epoch(model)
+        print(validate_epoch(model), end=' ')
 
 path = untar_data(URLs.MNIST_SAMPLE)
 
@@ -81,21 +98,26 @@ valid_y = tensor([1]*len(valid_3_tens) + [0]*len(valid_7_tens)).unsqueeze(1)
 
 valid_dset = list(zip(valid_x,valid_y))
 
-weights = init_params((28*28,1))
-bias = init_params(1)
+linear_model = nn.Linear(28*28,1)
+
+weights, bias = linear_model.parameters()
 
 dl = DataLoader(dset, batch_size=256)
 xb,yb = first(dl)
-
 valid_dl = DataLoader(valid_dset, batch_size=256)
 
-batch = train_x[:4]
-preds = linear1(batch)
-
+dls = DataLoaders(dl, valid_dl)
 lr = 1.
-params = weights, bias
 
-for i in range(20):
-    train_epoch(linear1, lr, params)
-    print(validate_epoch(linear1), end='\n')
+opt = SGD(linear_model.parameters(), lr)
 
+simple_net = nn.Sequential(
+    nn.Linear(28*28,30),
+    nn.ReLU(),
+    nn.Linear(30,1)
+)
+learn = Learner(dls, simple_net, opt_func=SGD, loss_func=mnist_loss, metrics=batch_accuracy)
+learn.fit(40, 0.1)
+
+plt.plot(L(learn.recorder.values).itemgot(2))
+plt.show()

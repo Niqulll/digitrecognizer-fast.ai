@@ -1,0 +1,172 @@
+1. How is a grayscale image represented on a computer? How about a color image?
+    Each pixel of an image is represented as a int representing the "blackness" of the pixel (0-255)
+    Color images add two extra layers to the amount of values per pixel, instead of being only one 0-255, it will be 3 RGB values between 0-255
+    This is notable because it triples the number of values you will have in an image if its in colour
+
+2. How are the files and folders in the `MNIST_SAMPLE` dataset structured? Why?
+    They are organized by train and test and then their respective numbers, makes it much easier to load in data if it's already organized
+    Instead of having to sort through all of the images yourself or use every number right off the bat.
+
+3. Explain how the "pixel similarity" approach to classifying digits works.
+    Basically just grabs the mean of every pixel value from a training set of two numbers, when you compare an image from the test set you subtract the
+    both means from the digits and see which one scores higher or lower.
+
+4. What is a list comprehension? Create one now that selects odd numbers from a list and doubles them.
+    It's a "pythonic" way of doing
+        "for x in y:
+            if "a" in x:"
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8]
+    numbers = [x*2 for x in numbers if (x%2 != 0)]
+
+5. What is a "rank-3 tensor"?
+    It means it's a 3 dimensional tensor. Rank is the number of axes or dimensions in a tensor.
+    Use .ndim to get a tensors rank directly
+
+6. What is the difference between tensor rank and shape? How do you get the rank from the shape?
+    Shape would be the size of each axis of a tensor
+
+7. What are RMSE and L1 norm?
+    RMSE also known as L2 norm is one of the main ways of measuring distance between pixel values L1 norm is the other way.
+    L1 = Mean Absolute Difference
+    L2 = Root Mean Squared Error
+
+8. How can you apply a calculation on thousands of numbers at once, many thousands of times faster than a Python loop?
+    Using broadcasting. Pytorch functions usually automatically use this for calculations involving tensors.
+    Usually uses either C or CUDA.
+
+9. Create a 3×3 tensor or array containing the numbers from 1 to 9. Double it. Select the bottom-right four numbers.
+    test = torch.tensor([[1,2,3],[4,5,6],[7,8,9]])
+    test = test*2
+    print(test[1:3,1:3])
+
+10. What is broadcasting?
+    When you try to calculate something between two tensors PyTorch will automatically expand the tensor with the smaller rank to match the size of the larger rank tensor.
+    Then when the tensors are the same size it will proceed with it's logic for two same ranked tensors.
+
+11. Are metrics generally calculated using the training set, or the validation set? Why?
+    Validation set. Because a very common issue in machine learning is overfitting with the training data. You train with your training data,
+    and then you will "test" your model with previously unseen data. This will give you a better idea of how your model will perform on real world data (unseen data).
+    If your training data isn't diverse enough or large enough it could cause overfitting which will cause the model to put out good metrics in training but bad metrics in validation data.
+
+12. What is SGD?
+    Stochastic Gradient Descent, this is one of the main mechanisms used to alter weight assignment so you can maximize the performance of the model.
+    Basically it's the mechanism that will improve your model or allow it to "learn" the data set by altering the weights based on how well or how bad it does with predictions.
+
+13. Why does SGD use mini-batches?
+    It's the middle ground between speed and performance, if you only used SGD on a single image would be very imprecise as it would only know the data of a single image,
+    you also can't use an entire data set as it would take a lot of time. Mini-batches allows you to teach the model quickly and efficiently, you get a handful of data from each epoch
+    which will allow it to see a wider range of data without overloading it. Mini batches are also better for running on a GPU, it allows the GPU to perform multiple small jobs at a time
+    which is much more efficient.
+
+14. What are the seven steps in SGD for machine learning?
+    1. Initialize the weights (random values)
+    2. For each image use those weights to predict the value
+    3. Use those predictions to calculate how good the model is (loss)
+    4. Calculate the gradient, which measures for each weight, how changing that weight would change the loss
+    5. Step (or change) all the weights based on those calculations
+    6. Go back to Step 2.
+    7. Iterate until you decide to stop the training process(based on time or stagnating accuracy)
+
+15. How do we initialize the weights in a model?
+    You start off with random weights. Then after getting your first predictions, you adjust the weights using SGD.
+
+16. What is "loss"?
+    The actual performance of the model, lower number (less loss) is good it means the model is predicting closer to the true value. High loss is badm,
+    it means it's guessing further away from the true value.
+
+17. Why can't we always use a high learning rate?
+    You can end up with loss that will "bounce" around more instead of slowly diverging towards lower loss.
+
+18. What is a "gradient"?
+    Gradients are the rise/run of a value in a function divided by the change in the value of the paramater. It tells you how much the you need to change the weights
+    to make the model perform better.
+
+19. Do you need to know how to calculate gradients yourself?
+    Not really, you can if you want but PyTorch and other libraries have functions that do it all for you. (.backward())
+
+20. Why can't we use accuracy as a loss function?
+    Because you need a gradient that changes and can't be 0 as that will impede your model from "learning".
+    Accuracy only changes when the predictions change, when weights receive very small changes, predictions won't really change much which means
+    that accuracy won't change meaning you end up with a gradient of 0, which changes nothing.
+
+21. Draw the sigmoid function. What is special about its shape?
+    Can't draw here but it looks likes 'S'. It always outputs a number between 0 and 1. It's a smooth curve that only goes up, which is useful for SGD to find meaningful
+    gradients. It is used for binary classification problems.
+
+22. What is the difference between a loss function and a metric?
+    Metrics are used for human understanding so that we can know if the model is getting better while loss is used by the machine to drive automated learning.
+    the loss must be a function that has a meaningful derivative. It has to be reasonably smooth or else the gradients will be all over the place and not really
+    provide any info on if the loss is high or low.
+
+23. What is the function to calculate new weights using a learning rate?
+    The optimizer step function
+
+24. What does the `DataLoader` class do?
+    A DataLoader can take any Python collection and turn it into an iterator over mini-batches.
+    We want a collection that will contain independent and dependent variables. (inputs and targets of the model)
+
+25. Write pseudocode showing the basic steps taken in each epoch for SGD.
+    for inputs, targets in dl:
+        preds = model(inputs)
+        loss = loss_function(preds, targets)
+        loss.backward()
+        params -= params.grad * lr
+
+26. Create a function that, if passed two arguments `[1,2,3,4]` and `'abcd'`, returns `[(1, 'a'), (2, 'b'), (3, 'c'), (4, 'd')]`. What is special about that output data structure?
+    def func(a,b):
+        lst = list(zip(a,b))
+        return lst
+    Gives you a convenient structure that contains the first value of every tuple is the input data and the second value is the label. Useful for ML.
+
+27. What does `view` do in PyTorch?
+    Changes the shape of a tensor without changing its contents.
+
+28. What are the "bias" parameters in a neural network? Why do we need them?
+    Part of the equation y = mx + b, its one of the parameters that you modify that can help change the output.
+    for example without a bias the output could be 0, the bias will allow the output to be != 0 even if the mx part of the equation returns 0.
+
+29. What does the `@` operator do in Python?
+    Matrix multiplication
+
+30. What does the `backward` method do?
+    Backpropagation, it's how the gradients are calculated. the method will return the current gradients
+
+31. Why do we have to zero the gradients?
+    PyTorch will add the gradients of a variable to any already stored gradients. If you calculate gradients in a loop it will just keep adding
+    to the gradient of the current loss. So you need to make sure to zero them.
+
+32. What information do we have to pass to `Learner`?
+    - DataLoaders which contain the DataLoader of the training set and the validation set
+    - The model (linear, neural net...)
+    - optimizer function
+    - loss function
+    - metrics you would like to see
+
+33. Show Python or pseudocode for the basic steps of a training loop.
+    def training(model, lr, params):
+        for inputs, targets in dl:
+            calc_grad(inputs, targets, model)
+            for p in params:
+                p.data -= p.grad*lr
+                p.grad.zero_()
+
+    for i in range(epochs):
+        training(model, lr, params)
+
+34. What is "ReLU"? Draw a plot of it for values from `-2` to `+2`.
+    Rectified linear unit, res.max(tensor(0.0)). Basically its a function that returns 0 if the number is negative, besides that its just y = x
+    Commonly used activation function.
+
+35. What is an "activation function"?
+    Not 100% sure on this one.
+
+    Allows us to add non-linearity between two linear layers. Instead of adding thousands of very small linear layers, we can add non-linear ones
+    in between that will let the linear layers be decoupled and do their own work. As opposed to having every linear layer be one after another
+    which is the same as just having one linear layer with some altered parameters.
+
+36. What's the difference between `F.relu` and `nn.ReLU`?
+    They are basically the same thing. nn.Sequential is a module which is a class so it needs to be instantiated.
+    Because nn.Sequential is a module you can get its parameters.
+
+37. The universal approximation theorem shows that any function can be approximated as closely as needed using just one nonlinearity. So why do we normally use more?
+    Don't know how to answer this one.

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27854ddb-b06b-401f-bf43-19f36fa6bfba" name="Changes" comment="Seperated into 2 .py files for the different parts of the lesson, L1_L2 for the L1 and L2 norm and showing how to make a model without ML and only using the averages of pixel values to predict. SGD for the Stochastic Gradient Descent.">
-      <change beforePath="$PROJECT_DIR$/.idea/digitrecognizer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/digitrecognizer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="27854ddb-b06b-401f-bf43-19f36fa6bfba" name="Changes" comment="Added MNIST file, this will be for the final portion of the lesson. It will also be the file that I make my own changes to to include all 10 digits.">
+      <change afterPath="$PROJECT_DIR$/Questionnaire" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L1_L2.py" beforeDir="false" afterPath="$PROJECT_DIR$/L1_L2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MNIST.py" beforeDir="false" afterPath="$PROJECT_DIR$/MNIST.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SGD.py" beforeDir="false" afterPath="$PROJECT_DIR$/SGD.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,20 +47,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.L1_L2.executor": "Run",
-    "Python.MNIST.executor": "Run",
-    "Python.SGD.executor": "Run",
-    "Python.main.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.L1_L2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MNIST.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SGD.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Tests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Python.MNIST">
+}</component>
+  <component name="RunManager" selected="Python.Tests">
     <configuration name="L1_L2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="digitrecognizer" />
       <option name="ENV_FILES" value="" />
@@ -129,8 +128,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="digitrecognizer" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Tests" />
         <item itemvalue="Python.MNIST" />
         <item itemvalue="Python.SGD" />
         <item itemvalue="Python.L1_L2" />
@@ -177,12 +199,21 @@
       <option name="project" value="LOCAL" />
       <updated>1716744827479</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added MNIST file, this will be for the final portion of the lesson. It will also be the file that I make my own changes to to include all 10 digits.">
+      <option name="closed" value="true" />
+      <created>1722289299584</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1722289299584</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="See comments for important notes" />
     <MESSAGE value="Seperated into 2 .py files for the different parts of the lesson, L1_L2 for the L1 and L2 norm and showing how to make a model without ML and only using the averages of pixel values to predict. SGD for the Stochastic Gradient Descent." />
-    <option name="LAST_COMMIT_MESSAGE" value="Seperated into 2 .py files for the different parts of the lesson, L1_L2 for the L1 and L2 norm and showing how to make a model without ML and only using the averages of pixel values to predict. SGD for the Stochastic Gradient Descent." />
+    <MESSAGE value="Added MNIST file, this will be for the final portion of the lesson. It will also be the file that I make my own changes to to include all 10 digits." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added MNIST file, this will be for the final portion of the lesson. It will also be the file that I make my own changes to to include all 10 digits." />
   </component>
 </project>
