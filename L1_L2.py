@@ -35,8 +35,8 @@ mean3 = stacked_threes.mean(0)
 mean7 = stacked_sevens.mean(0)
 
 #Important how to actually display the info with matplotlib
-#plt.imshow(mean7, cmap='binary')
-#plt.show()
+plt.imshow(mean7, cmap='binary')
+plt.show()
 
 a_3 = stacked_threes[1]
 a_7 = stacked_sevens[1]
